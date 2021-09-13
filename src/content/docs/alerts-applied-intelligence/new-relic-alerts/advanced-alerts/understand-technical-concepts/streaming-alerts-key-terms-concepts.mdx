@@ -75,13 +75,40 @@ All of these configurable delays give you more control over how you're alerted o
         A specific amount of time when the filtered data (or its absence) can accumulate in this window.
       </td>
     </tr>
+    
+    <tr>
+      <td>
+        Aggregation method
+      </td>
+      <td>
+        The logic that tells us when we have all the data for a given aggregation window. 
+      </td>
+    </tr>  
+      
+    <tr>
+      <td>
+        Aggregation delay
+      </td>
+      <td>
+        The length of time in seconds to wait for the aggregation window to fill with data. Use in favor of Evaluation offset.
+      </td>
+    </tr>  
+      
+    <tr>
+      <td>
+        Aggregation timer
+      </td>
+      <td>
+        The length of time in seconds to wait after each data point received, to ensure the entire batch is processed.
+      </td>
+    </tr>  
 
     <tr>
       <td>
         Evaluation offset
       </td>
       <td>
-        A time delay to ensure data points are placed in the correct aggregation window.
+        Deprecated in favor of Aggregation delay. A time delay to ensure data points are placed in the correct aggregation window.
       </td>
     </tr>
 
@@ -123,6 +150,7 @@ Streaming alerts provide a set of tools you can use to more effectively alert on
 * Loss of signal detection
 * Gap filling
 * Aggregation window duration customization
+* Aggregation method customization
 * Offset evaluation
 
 <Callout variant="tip">
@@ -154,6 +182,15 @@ In order to make loss of signal detection more effective and to reduce unnecessa
 An [aggregation window](/docs/using-new-relic/welcome-new-relic/get-started/glossary#aggregation-window) is a specific block of time. We gather data points together in an aggregation window, before using the [aggregation function](/docs/using-new-relic/welcome-new-relic/get-started/glossary#aggregation-function) to evaluate the data. A longer aggregation window gives straggling data points more time to arrive before evaluating that data. When a data point arrives, its timestamp is used to put it in the proper aggregation window.
 
 You can set your aggregation window to anything between 1 second and 15 minutes. The default is `1` minute.
+
+### Aggregation method
+An [aggregation method](/docs/using-new-relic/welcome-new-relic/get-started/glossary#aggregation-method) is the logic that tells us when we have all the data for a given aggregation window. Once the window is closed, the data is aggregated into a single point and evaluated against the threshold. Valid values are CADENCE (Default), EVENT_FLOW and EVENT_TIMER.
+
+### Aggregation delay
+An [aggregation delay](/docs/using-new-relic/welcome-new-relic/get-started/glossary#aggregation-delay) is the length of time in seconds to wait for the aggregation window to fill with data. Required when using CADENCE or EVENT_FLOW `aggreation_method` types. Replacing the Offset evaluation term. 
+
+### Aggregation timer
+An [aggregation timer](/docs/using-new-relic/welcome-new-relic/get-started/glossary#aggregation-timer) is the length of time in seconds to wait after each data point received, to ensure the entire batch is processed. Required when using EVENT_TIMER `aggreation_method` type.
 
 ### Offset evaluation
 
